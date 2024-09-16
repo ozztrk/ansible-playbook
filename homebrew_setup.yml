@@ -25,6 +25,7 @@
     - bat
     - bottom
     - lazygit
+    - tmux
     - fd
     - ast-grep
     - luarocks
