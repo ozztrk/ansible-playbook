@@ -2,14 +2,14 @@
 - hosts: localhost
   become: true
   tasks:
-    # - name: Include macOS preferences setup
-    #   import_tasks: mac_settings.yml
+    - name: Include macOS preferences setup
+      import_tasks: mac_settings.yml
 
-    # - name: Include NVM setup
-    #   import_tasks: nvm_setup.yml
+    - name: Include NVM setup
+      import_tasks: nvm_setup.yml
 
-    # - name: Include Miniconda setup
-    #   import_tasks: miniconda_setup.yml
+    - name: Include Miniconda setup
+      import_tasks: miniconda_setup.yml
 
     - name: Include Homebrew setup
       import_tasks: homebrew_setup.yml
