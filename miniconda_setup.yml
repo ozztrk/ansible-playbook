@@ -1,0 +1,47 @@
+---
+- name: Ensure Miniconda installation directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/miniconda"
+    state: directory
+    mode: '0755'
+
+- name: Check if Miniconda is installed
+  stat:
+    path: "{{ ansible_env.HOME }}/miniconda/bin/conda"
+  register: miniconda_installed
+
+- name: Download Miniconda installer for ARM64
+  get_url:
+    url: https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
+    dest: /tmp/Miniconda3-latest-MacOSX-arm64.sh
+    mode: '0644'
+  register: miniconda_download
+  when: not miniconda_installed.stat.exists
+
+- name: Install Miniconda
+  shell: |
+    if [ ! -d "$HOME/miniconda" ]; then
+      bash /tmp/Miniconda3-latest-MacOSX-arm64.sh -b -p $HOME/miniconda
+    else
+      echo "Miniconda is already installed."
+    fi
+  args:
+    creates: "{{ ansible_env.HOME }}/miniconda/bin/conda"
+  when: miniconda_download.changed or not miniconda_installed.stat.exists
+
+- name: Ensure Miniconda is added to PATH in zshrc
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    line: 'export PATH="$HOME/miniconda/bin:$PATH"'
+    create: yes
+    state: present
+
+- name: Source zshrc to update PATH
+  shell: source "{{ ansible_env.HOME }}/.zshrc"
+  ignore_errors: yes
+
+- name: Clean up Miniconda installer
+  file:
+    path: /tmp/Miniconda3-latest-MacOSX-arm64.sh
+    state: absent
+  when: miniconda_download.changed

@@ -1,0 +1,48 @@
+---
+- name: In
+  shell: xcode-select --install
+  ignore_errors: true
+
+- name: Check if Homebrew is installed
+  command: brew --version
+  register: brew_check
+  failed_when: false
+  changed_when: false
+
+- name: Install Homebrew if it's not installed
+  shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  when: brew_check.rc != 0
+
+- name: Install essential development packages via Homebrew
+  homebrew:
+    name: "{{ item }}"
+  with_items:
+    - git
+    - wget
+    - fzf
+    - ripgrep
+    - neovim
+    - bat
+    - bottom
+    - lazygit
+    - fd
+    - ast-grep
+    - luarocks
+    - jandedobbeleer/oh-my-posh/oh-my-posh
+  become: false
+
+- name: Install GUI apps using Homebrew Cask
+  homebrew_cask:
+    name: "{{ item }}"
+  with_items:
+    - kitty
+    - visual-studio-code@insiders
+    - nikitabobko/tap/aerospace
+    - google-chrome
+    - stats
+    - font-jetbrains-mono-nerd-font
+    - linearmouse
+    - maccy
+    - 1password
+    - docker
+  become: false

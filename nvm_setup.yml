@@ -1,0 +1,22 @@
+---
+- name: Download and install NVM
+  shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+  args:
+    creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+
+- name: Add NVM to zshrc
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    line: |
+      export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+    create: yes
+    state: present
+
+- name: Source zshrc to make NVM available
+  shell: source "{{ ansible_env.HOME }}/.zshrc"
+  ignore_errors: true
+
+- name: Install latest Node.js using NVM
+  shell: . $HOME/.nvm/nvm.sh && nvm install --lts
