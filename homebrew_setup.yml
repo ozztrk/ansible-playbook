@@ -29,7 +29,7 @@
     - fd
     - ast-grep
     - luarocks
-    - jandedobbeleer/oh-my-posh/oh-my-posh
+    - yarn
   become: false
 
 - name: Install GUI apps using Homebrew Cask
