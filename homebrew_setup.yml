@@ -20,9 +20,11 @@
     - git
     - wget
     - fzf
+    - 1password-cli
     - ripgrep
     - neovim
     - bat
+    - tree
     - bottom
     - lazygit
     - tmux
