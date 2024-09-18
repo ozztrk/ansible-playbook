@@ -19,6 +19,7 @@
   with_items:
     - git
     - wget
+    - stow
     - fzf
     - 1password-cli
     - ripgrep
