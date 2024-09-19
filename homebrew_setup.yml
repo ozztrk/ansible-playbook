@@ -27,6 +27,7 @@
     - bat
     - tree
     - docker-buildx
+    - figlet
     - bottom
     - lazygit
     - tmux
