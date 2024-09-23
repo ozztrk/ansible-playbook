@@ -23,6 +23,7 @@
     - fzf
     - 1password-cli
     - ripgrep
+    - watch
     - neovim
     - bat
     - tree
