@@ -24,6 +24,7 @@
     - 1password-cli
     - ripgrep
     - watch
+    - cmake
     - neovim
     - bat
     - tree
