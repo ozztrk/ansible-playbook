@@ -8,8 +8,8 @@
     - name: Include NVM setup
       import_tasks: nvm_setup.yml
 
-    - name: Include Miniconda setup
-      import_tasks: miniconda_setup.yml
+    # - name: Include Miniconda setup
+    #   import_tasks: miniconda_setup.yml
 
     - name: Include Homebrew setup
       import_tasks: homebrew_setup.yml

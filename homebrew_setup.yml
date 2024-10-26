@@ -17,37 +17,48 @@
   homebrew:
     name: "{{ item }}"
   with_items:
-    - git
-    - wget
-    - stow
-    - fzf
-    - 1password-cli
-    - ripgrep
-    - watch
-    - cmake
-    - neovim
-    - bat
-    - tree
-    - docker-buildx
-    - figlet
-    - bottom
-    - lazygit
-    - tmux
-    - fd
     - ast-grep
+    - bottom
+    - bat
+    - colima
+    - cmake
+    - docker
+    - docker-buildx
+    - docker-completion # Look this up
+    - fzf
+    - fd
+    - figlet
+    - fastfetch
+    - k9s
+    - kubernetes-cli
+    - git
+    - lua
     - luarocks
+    - lazygit
+    - neovim
+    - ripgrep
+    - stow
+    - tree
+    # - tree-sitter # is this needed here or only nvim?
+    - tmux
+    - watch
+    - wget
     - yarn
+    - 1password-cli
   become: false
 
 - name: Install GUI apps using Homebrew Cask
   homebrew_cask:
     name: "{{ item }}"
   with_items:
+    - aerospace
     - kitty
     - visual-studio-code@insiders
+    - 1password-cli
     - nikitabobko/tap/aerospace
     - google-chrome
     - stats
+    - spotify
     - font-jetbrains-mono-nerd-font
     - linearmouse
     - maccy
