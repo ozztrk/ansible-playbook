@@ -44,6 +44,7 @@
     - watch
     - wget
     - yarn
+    - zoxide
     - 1password-cli
   become: false
 
