@@ -18,27 +18,37 @@
     name: "{{ item }}"
   with_items:
     - ast-grep
+    - ansible
+    - antidote
     - bottom
     - bat
     - colima
     - cmake
+    - certbot
+    - docker-compose
     - docker
     - docker-buildx
     - docker-completion # Look this up
     - fzf
+    - ffmpeg
     - fd
     - figlet
     - fastfetch
+    - git
+    - ghostscript
+    - helm
+    - kind
     - k9s
     - kubernetes-cli
-    - git
     - lua
     - luarocks
+    - lazydocker
     - lazygit
     - neovim
     - ripgrep
     - stow
     - tree
+    # - jandedobbeleer/oh-my-posh/oh-my-posh
     # - tree-sitter # is this needed here or only nvim?
     - tmux
     - watch
@@ -52,17 +62,17 @@
   homebrew_cask:
     name: "{{ item }}"
   with_items:
-    - aerospace
-    - kitty
+    # - kitty
+    - ghostty
     - visual-studio-code@insiders
     - 1password-cli
     - nikitabobko/tap/aerospace
-    - google-chrome
+    # - google-chrome
+    - arc
     - stats
     - spotify
     - font-jetbrains-mono-nerd-font
     - linearmouse
     - maccy
     - 1password
-    - docker
   become: false
