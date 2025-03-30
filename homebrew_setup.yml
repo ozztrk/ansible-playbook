@@ -62,8 +62,8 @@
   homebrew_cask:
     name: "{{ item }}"
   with_items:
-    # - kitty
-    - ghostty
+    - kitty
+    # - ghostty
     - visual-studio-code@insiders
     - 1password-cli
     - nikitabobko/tap/aerospace
