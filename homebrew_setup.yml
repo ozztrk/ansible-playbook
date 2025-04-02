@@ -1,17 +1,17 @@
----
-- name: In
-  shell: xcode-select --install
-  ignore_errors: true
+# ---
+# - name: In
+#   shell: xcode-select --install
+#   ignore_errors: true
 
-- name: Check if Homebrew is installed
-  command: brew --version
-  register: brew_check
-  failed_when: false
-  changed_when: false
+# - name: Check if Homebrew is installed
+#   command: brew --version
+#   register: brew_check
+#   failed_when: false
+#   changed_when: false
 
-- name: Install Homebrew if it's not installed
-  shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  when: brew_check.rc != 0
+# - name: Install Homebrew if it's not installed
+#   shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#   when: brew_check.rc != 0
 
 - name: Install essential development packages via Homebrew
   homebrew:
