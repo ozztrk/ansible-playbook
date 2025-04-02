@@ -14,6 +14,9 @@ else
   echo "Homebrew is already installed."
 fi
 
+# Ensure Homebrew is in the PATH
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Check if Ansible is installed
 if ! command -v ansible &>/dev/null; then
   echo "Installing Ansible..."
