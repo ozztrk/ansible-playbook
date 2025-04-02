@@ -5,9 +5,11 @@ echo "Installing Xcode Command Line Tools..."
 xcode-select --install || echo "Xcode Command Line Tools already installed."
 
 # Check if Homebrew is installed
-if ! command -v brew &>/dev/null; then
+if [ ! -x "$(which brew)" ]; then
   echo "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 else
   echo "Homebrew is already installed."
 fi
