@@ -1,18 +1,21 @@
 # How to Run the Playbook
 
-## If Ansible is Already Installed
+## If Ansible is already installed
 1. Navigate to the playbook directory:
    ```bash
    cd ansible-playbook
-2. Run the playbook
+   ```
+2. Run the playbook targeting your local machine:
    ```bash
-   ansible-playbook main.yml --ask-become-pass
-## If Ansible is Not Installed
-1. Make the setup script executable
+   ansible-playbook site.yml --ask-become-pass
+   ```
+
+## If Ansible is not installed
+1. Make the setup script executable:
    ```bash
    chmod +x setup.sh
-2. Run the setup scrupt:
+   ```
+2. Run the setup script (it installs prerequisites and then executes the playbook):
    ```bash
    ./setup.sh
-
-This will isntall the required dependencies and execute the playbook.
+   ```

@@ -19,11 +19,13 @@
   with_items:
     - ast-grep
     - antidote
+    - awscli
     - bottom
     - bat
     - colima
     - cmake
     - certbot
+    - direnv
     - docker-compose
     - docker
     - docker-buildx
@@ -44,6 +46,7 @@
     - lazydocker
     - lazygit
     - neovim
+    - pulumi
     - qemu
     - ripgrep
     - stow

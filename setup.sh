@@ -25,6 +25,6 @@ else
   echo "Ansible is already installed."
 fi
 
-# Run the Ansible playbook
+# Run the full Ansible site playbook
 echo "Running Ansible playbook..."
-ansible-playbook homebrew_setup.yml --ask-become-pass
+ansible-playbook site.yml --ask-become-pass
