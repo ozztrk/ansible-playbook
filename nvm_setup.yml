@@ -1,22 +1,12 @@
 ---
+# Installs NVM into ~/.nvm. The shell integration already lives in the
+# dotfiles repo (zsh/.zshrc), so nothing is appended to ~/.zshrc here —
+# that file is a stow-managed symlink and must stay identical to the repo.
 - name: Download and install NVM
-  shell: >
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+  ansible.builtin.shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
   args:
     creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
 
-- name: Add NVM to zshrc
-  lineinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
-    line: |
-      export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-    create: yes
-    state: present
-
-- name: Source zshrc to make NVM available
-  shell: source "{{ ansible_env.HOME }}/.zshrc"
-  ignore_errors: true
-
-- name: Install latest Node.js using NVM
-  shell: . $HOME/.nvm/nvm.sh && nvm install --lts
+- name: Install latest LTS Node.js using NVM
+  ansible.builtin.shell: . "$HOME/.nvm/nvm.sh" && nvm install --lts

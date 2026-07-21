@@ -1,81 +1,105 @@
-# ---
-# - name: In
-#   shell: xcode-select --install
-#   ignore_errors: true
+---
+# Homebrew itself is bootstrapped by setup.sh (needs sudo for /opt/homebrew),
+# everything here runs as the normal user.
 
-# - name: Check if Homebrew is installed
-#   command: brew --version
-#   register: brew_check
-#   failed_when: false
-#   changed_when: false
-
-# - name: Install Homebrew if it's not installed
-#   shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-#   when: brew_check.rc != 0
+- name: Tap external Homebrew repositories
+  community.general.homebrew_tap:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - anomalyco/tap # opencode
 
 - name: Install essential development packages via Homebrew
-  homebrew:
+  community.general.homebrew:
     name: "{{ item }}"
+    state: present
   with_items:
-    - ast-grep
-    - antidote
-    - awscli
-    - bottom
+    # Shell & prompt
+    - antidote # zsh plugin manager (used in .zshrc)
+    - oh-my-posh # prompt theme engine (used in .zshrc)
     - bat
-    - colima
-    - cmake
-    - certbot
+    - bottom
     - direnv
-    - docker-compose
-    - docker
-    - docker-buildx
-    - docker-completion # Look this up
-    - fzf
-    - ffmpeg
     - fd
     - figlet
+    - fzf
     - fastfetch
+    - ripgrep
+    - stow
+    - tmux
+    - tree
+    - watch
+    - wget
+    - zoxide
+    # Editors
+    - neovim
+    - ast-grep
+    - lua
+    - luarocks
+    # Git & GitHub
     - git
-    - ghostscript
+    - gh
+    - lazygit
+    # Containers & Kubernetes
+    - colima
+    - docker
+    - docker-buildx
+    - docker-completion
+    - docker-compose
+    - lazydocker
     - helm
     - kind
     - k9s
     - kubernetes-cli
-    - lua
-    - luarocks
-    - lazydocker
-    - lazygit
-    - neovim
+    # Cloud & infra
+    - awscli
     - pulumi
-    - qemu
-    - ripgrep
-    - stow
-    - tree
-    # - jandedobbeleer/oh-my-posh/oh-my-posh
-    # - tree-sitter # is this needed here or only nvim?
-    - tmux
-    - watch
-    - wget
+    - certbot
+    - unbound
+    # Languages & tooling
+    - cmake
+    - uv
     - yarn
-    - zoxide
-    - 1password-cli
-  become: false
+    # Media & docs
+    - ffmpeg
+    - ghostscript
+    - poppler
+    - latexml
+    - p7zip
+    # Databases & services
+    - redis
+    # AI CLIs
+    - anomalyco/tap/opencode
 
 - name: Install GUI apps using Homebrew Cask
-  homebrew_cask:
+  community.general.homebrew_cask:
     name: "{{ item }}"
+    state: present
   with_items:
+    # Terminals
     - kitty
-    # - ghostty
+    - ghostty
+    # Editors
     - visual-studio-code@insiders
-    - 1password-cli
-    - nikitabobko/tap/aerospace
-    # - google-chrome
-    - arc
-    - stats
-    - spotify
-    - font-jetbrains-mono-nerd-font
+    # Window management & UX
+    - aerospace
     - linearmouse
     - maccy
+    - stats
+    # Browsers
+    - arc
+    - google-chrome
+    # Security
     - 1password
-  become: false
+    - 1password-cli
+    - session-manager-plugin # AWS SSM
+    # Dev tools
+    - beekeeper-studio
+    - android-platform-tools
+    # Fonts
+    - font-jetbrains-mono-nerd-font
+    - font-fira-code-nerd-font
+    # Other
+    - spotify
+    - whatsapp@beta
+    - mactex

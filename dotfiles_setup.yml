@@ -1,0 +1,22 @@
+---
+# Clones the dotfiles repo and links the configs into place with GNU Stow
+# (stow is installed by homebrew_setup.yml).
+#
+# NOTE: stow refuses to overwrite existing real files. On a brand-new Mac
+# there is usually no ~/.zshrc, so this just works. If stow reports a
+# conflict, back up and remove the existing file, then re-run the playbook.
+- name: Clone or update the dotfiles repository
+  ansible.builtin.git:
+    repo: https://github.com/ozztrk/dotfiles.git
+    dest: "{{ ansible_env.HOME }}/dotfiles"
+    update: true
+
+- name: Stow shell, tmux, git and Aerospace configs into $HOME
+  ansible.builtin.command:
+    cmd: stow --restow zsh aerospace tmux git
+    chdir: "{{ ansible_env.HOME }}/dotfiles"
+
+- name: Stow application configs (nvim, kitty, fastfetch) into ~/.config
+  ansible.builtin.command:
+    cmd: stow --restow --target="{{ ansible_env.HOME }}/.config" config
+    chdir: "{{ ansible_env.HOME }}/dotfiles"

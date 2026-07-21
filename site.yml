@@ -1,6 +1,9 @@
 ---
 - hosts: localhost
-  become: true
+  # Everything runs as the normal user. Do NOT set become: true here:
+  # `defaults write` would then write to root's preferences instead of yours,
+  # and Homebrew refuses to run as root.
+  become: false
   tasks:
     - name: Include macOS preferences setup
       import_tasks: mac_settings.yml
@@ -8,8 +11,8 @@
     - name: Include NVM setup
       import_tasks: nvm_setup.yml
 
-    # - name: Include Miniconda setup
-    #   import_tasks: miniconda_setup.yml
-
     - name: Include Homebrew setup
       import_tasks: homebrew_setup.yml
+
+    - name: Include dotfiles setup
+      import_tasks: dotfiles_setup.yml
